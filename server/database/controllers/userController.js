@@ -86,8 +86,10 @@ module.exports = {
 
             if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
     
-            const token = jwt.sign(user, SECRET_KEY, { expiresIn: '1h' });
+            const token = jwt.sign(user, SECRET_KEY, { expiresIn: '24h' });
+            
             res.status(200).json({ message: 'Login successful', token });
+
         } catch (error) {
             console.error('Error logging in:', error);
             res.status(500).json({ message: 'Internal server error' });
