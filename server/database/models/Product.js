@@ -22,13 +22,18 @@ module.exports = (connection, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
-      onDelete: 'CASCADE',
+
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
     },
   });
   return Product;

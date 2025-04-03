@@ -1,9 +1,11 @@
 // server/index.js
 const express = require('express');
 const cors = require('cors');
-const app = express();
-const routes = require('./routes');
+const connection = require('./database/index.js');
 
+
+const app = express();
+const routes = require('./database/routers/index.js')
 app.use(cors());
 app.use(express.json());
 app.use('/api', routes);
