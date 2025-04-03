@@ -1,4 +1,5 @@
-const {Sequelize,DataTypes} = require('sequelize');
+// database/connection.js
+const { Sequelize, DataTypes } = require('sequelize');
 
 const connection = new Sequelize('VAULT', 'root', 'root', {
   host: 'localhost',
@@ -7,10 +8,7 @@ const connection = new Sequelize('VAULT', 'root', 'root', {
 });
 
 connection.authenticate()
-.then(()=> console.log('Connection has been established successfully.'))
-
-
-// connection.sync({force: false})
+  .then(() => console.log('Database connected successfully.'))
+  .catch(err => console.error('Database connection failed:', err));
 
 module.exports = connection;
-

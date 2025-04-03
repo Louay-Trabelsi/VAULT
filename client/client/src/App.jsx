@@ -1,23 +1,18 @@
-import logo from './logo.svg';
+import React from 'react';
+import Navbar from './components/Home.jsx/Navbar';
+import Footer from './components/Home.jsx/Footer';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar /> {/* عرض الـ Navbar */}
+      <div className="container mt-4">
+        {/* محتوى التطبيق هنا */}
+        <h1>Welcome to Vault</h1>
+        <p>Discover antique treasures.</p>
+      </div>
+      <Footer /> {/* عرض الـ Footer */}
     </div>
   );
 }

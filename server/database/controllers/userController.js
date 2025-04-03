@@ -1,4 +1,4 @@
-const {User}= require('./models/user');
+const {User}= require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.JWT_SECRET||"your_jwt_secret_key";

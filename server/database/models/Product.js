@@ -1,3 +1,4 @@
+// models/product.js
 module.exports = (connection, DataTypes) => {
   const Product = connection.define('Product', {
     id: {
@@ -21,7 +22,14 @@ module.exports = (connection, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
   });
-
   return Product;
-}
+};
