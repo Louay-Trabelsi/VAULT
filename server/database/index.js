@@ -22,7 +22,7 @@ connection.authenticate()
 
 const User = require('./models/user')(connection,DataTypes)
 const cart = require('./models/cart')(connection,DataTypes)
-const Product = require('./models/product')(connection,DataTypes)
+const Product = require('./models/Product')(connection,DataTypes)
 
 
 // connection.sync({force:true})
@@ -31,8 +31,7 @@ const Product = require('./models/product')(connection,DataTypes)
 // })
 // .catch(err => console.error('Unable to synchronize models:', err))
 
-User.hasMany(Product);
-Product.belongsTo(User);
+
 
 
 module.exports = {connection,User,cart,Product};

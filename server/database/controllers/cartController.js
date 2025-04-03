@@ -1,4 +1,4 @@
-const { Cart, Product } = require("../models"); // Adjust path if necessary
+const { Cart, Product } = require("../index.js"); // Adjust path if necessary
 
 module.exports = {
   // Get all cart items

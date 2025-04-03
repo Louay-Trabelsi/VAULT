@@ -1,4 +1,4 @@
-const { Product } = require("../models"); // Adjust path if necessary
+const { Product } = require("../index.js"); // Adjust path if necessary
 
 module.exports = {
   // Get all products
@@ -28,22 +28,16 @@ module.exports = {
 
   // Create a new product
   createProduct: async (req, res) => {
-    const { name, description, price, quantity, image, category, rating } = req.body;
+    // const { name, description, price, quantity, image, category } = req.body;
     try {
-      const newProduct = await Product.create({
-        name,
-        description,
-        price,
-        quantity,
-        image,
-        category,
-        rating,
-      });
+      const newProduct = await Product.create(
+      req.body
+      );
 
       res.status(201).json({ message: "Product created successfully", product: newProduct });
     } catch (error) {
       console.error("Error creating product:", error);
-      res.status(500).json({ message: "Internal server error" });
+      res.status(500).json(error);
     }
   },
 

@@ -27,7 +27,7 @@ module.exports = (connection, DataTypes) => {
       allowNull: true,
     },
     category: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
       allowNull: true,
     },
     rating: {
