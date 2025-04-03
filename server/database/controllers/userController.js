@@ -1,7 +1,7 @@
-const {User}= require('./models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = process.env.JWT_SECRET||"your_jwt_secret_key";
+const SECRET_KEY = process.env.JWT_SECRET||"amine_secret_key";
+const {User}= require('../index.js');
 module.exports = {
 
     authenticate : (req, res, next) => {
@@ -72,27 +72,30 @@ module.exports = {
             res.status(201).json({ message: 'User created successfully', user });
         } catch (error) {
             console.error('Error creating user:', error);
-            res.status(500).json({ message: 'Internal server error' });
+            res.status(500).send(error);
         }
     },
     login: async (req, res) => {
         const { email, password } = req.body;
         try {
-            const user = await User.findAll({ where: { email } });
-            if (!user) return res.status(404).json({ message: 'User not found' });
+            const user = await User.findOne({ where: { email:email } });
+            if (!user) {
+                return res.status(404).send({ message: 'User not found' })
+            }
 
             const isMatch = await bcrypt.compare(password, user.password);
 
-
-            if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
+            if (!isMatch) {
+                return res.status(401).send({ message: 'Invalid credentials' });
+         }
     
-            const token = jwt.sign(user, SECRET_KEY, { expiresIn: '24h' });
+            const token = jwt.sign({ id: user.id,role:user.role,status:user.status }, SECRET_KEY, { expiresIn: '24h' });
             
-            res.status(200).json({ message: 'Login successful', token });
+            res.status(200).send({ message: 'Login successful', token });
 
         } catch (error) {
             console.error('Error logging in:', error);
-            res.status(500).json({ message: 'Internal server error' });
+            res.status(500).json(error);
         }
     },
     updateUser: async (req, res) => {
