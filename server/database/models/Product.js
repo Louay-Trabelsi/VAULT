@@ -21,6 +21,19 @@ module.exports = (connection, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
   });
 
   return Product;

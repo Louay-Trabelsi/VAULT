@@ -1,16 +1,38 @@
 const {Sequelize,DataTypes} = require('sequelize');
+const { PostgresDialect } =require ('@sequelize/postgres')
 
-const connection = new Sequelize('VAULT', 'root', 'root', {
-  host: 'localhost',
+const postgres = require('pg')
+
+
+const connection = new Sequelize({
   dialect: 'postgres',
+  database: 'vault',
+  username: 'postgres',
+  password: 'root',
+  host: 'localhost',
+  port: 5432,
   logging: false,
+  ssl: false,
+  clientMinMessages: 'notice',
 });
 
 connection.authenticate()
 .then(()=> console.log('Connection has been established successfully.'))
+.catch(err => console.error('Unable to connect to the database:', err))
+
+const User = require('./models/user')(connection,DataTypes)
+const cart = require('./models/cart')(connection,DataTypes)
+const Product = require('./models/Product')(connection,DataTypes)
 
 
-// connection.sync({force: false})
+// connection.sync({force:true})
+// .then(() => {
+//     console.log('All models were synchronized successfully.');
+// })
+// .catch(err => console.error('Unable to synchronize models:', err))
 
-module.exports = connection;
+
+
+
+module.exports = {connection,User,cart,Product};
 
