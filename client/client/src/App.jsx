@@ -1,17 +1,20 @@
 import React from 'react';
-import Navbar from './components/Home.jsx/Navbar';
-import Footer from './components/Home.jsx/Footer';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/home page/Navbar';
+import Footer from './components/home page/Footer';
+import Home from './components/home page/Home';
 import './App.css';
+import './index.css';
+import './styles.css';  // Import the new styles
 
 function App() {
   return (
     <div className="App">
       <Navbar /> {/* عرض الـ Navbar */}
-      <div className="container mt-4">
-        {/* محتوى التطبيق هنا */}
-        <h1>Welcome to Vault</h1>
-        <p>Discover antique treasures.</p>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* Add other routes here as needed */}
+      </Routes>
       <Footer /> {/* عرض الـ Footer */}
     </div>
   );
