@@ -22,7 +22,7 @@ const Profile = () => {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
         
-        const response = await axios.get(`http://localhost:3000/api/user/${userId}`, {
+        const response = await axios.get(`http://localhost:3000/api/user/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
