@@ -22,7 +22,7 @@ const Home = () => {
             </Col>
             <Col md={6}>
               <img
-                src="/hero-antique.jpg"
+                src="https://images-cdn.ubuy.co.in/635e0b1d3f834e34592dc8ad-metal-antique-vintage-car-model.jpg"
                 alt="Antique Collection"
                 className="hero-image"
               />
