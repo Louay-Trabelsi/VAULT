@@ -1,12 +1,12 @@
-
-module.exports =(connection,DataTypes) => {
-const User = connection.define('User', {
-    id: {
+// models/user.js
+module.exports = (connection, DataTypes) => {
+    const User = connection.define('User', {
+      id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-    },
-    name: {
+      },
+      name: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -14,8 +14,8 @@ const User = connection.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true,
-    },
-    password: {
+      },
+      password: {
         type: DataTypes.STRING,
         allowNull: true,
     },
@@ -23,8 +23,8 @@ const User = connection.define('User', {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: 'user',
-    },
-   image: {
+      },
+      image: {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-978409_1280.png',

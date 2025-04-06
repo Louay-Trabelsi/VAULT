@@ -1,3 +1,4 @@
+// models/product.js
 module.exports = (connection, DataTypes) => {
   const Product = connection.define('Product', {
     id: {
@@ -35,6 +36,5 @@ module.exports = (connection, DataTypes) => {
       allowNull: true,
     },
   });
-
   return Product;
-}
+};

@@ -4,13 +4,15 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom'; // استيراد BrowserRouter
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-   <Router>
+    <BrowserRouter> {/* تغليف المكون App بـ BrowserRouter */}
       <App />
-    </Router>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
