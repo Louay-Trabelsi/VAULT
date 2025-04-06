@@ -36,10 +36,17 @@ function Login() {
               }
 
               localStorage.setItem('token', response.data.token)
-              localStorage.setItem('userrole', jwtDecode(response.data.token).role)
-              navigate('/Overview')
-              console.log(response.data.token)
-              console.log(jwtDecode(response.data.token))
+              if( jwtDecode(response.data.token).role=== 'admin'){
+              navigate('/dashboard/Overview')
+              }
+              else if (jwtDecode(response.data.token).role === 'user') {
+                  navigate('/profile')
+              }
+              else {
+                  alert('Invalid role')
+              }
+              // console.log(response.data.token)
+              // console.log(jwtDecode(response.data.token))
           } catch (error) {
               console.log(error)
           }
@@ -49,7 +56,7 @@ function Login() {
       </button>
 
       <p className="login-footer">
-        You don't have an account? <a href="/" className="login-link">Sign up</a> here
+        You don't have an account? <a href="SignUp" className="login-link">Sign up</a> here
       </p>
     </div>
   )
