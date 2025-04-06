@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import  { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 import '../css/Profile.css';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
-  const id = jwtDecode(response.data.token).id
 
   useEffect(() => {
-    if (!token) {
-      navigate('/login'); // Redirect to login if not authenticated
-      return;
-    }
+    // if (!token) {
+    //   navigate('/login');
+    //   return;
+    // }
 
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${id}`, {
+        const decodedToken = jwtDecode(token);
+        const userId = decodedToken.id;
+        
+        const response = await axios.get(`http://localhost:3000/api/user/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        
         setUserData(response.data);
+        setError(null);
       } catch (error) {
         console.error('Error fetching user data:', error);
-        navigate('/login'); // Redirect to login on error
+        setError('Failed to load profile data. Please try again later.');
+        if (error.response?.status === 401) {
+          localStorage.removeItem('token');
+          navigate('/login');
+        }
       } finally {
         setLoading(false);
       }
@@ -36,12 +45,38 @@ const Profile = () => {
     fetchUserData();
   }, [navigate, token]);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
   if (loading) {
-    return <div className="profile-loading">Loading...</div>;
+    return (
+      <div className="profile-loading">
+        <div className="loading-spinner"></div>
+        <p>Loading your profile...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="profile-error">
+        <p>{error}</p>
+        <button className="retry-button" onClick={() => window.location.reload()}>
+          Retry
+        </button>
+      </div>
+    );
   }
 
   if (!userData) {
-    return <div className="profile-error">Error loading profile. Please try again.</div>;
+    return (
+      <div className="profile-error">
+        <p>No profile data available.</p>
+      </div>
+    );
   }
 
   return (
@@ -55,29 +90,49 @@ const Profile = () => {
         <section className="profile-section">
           <h2>Your Details</h2>
           <div className="profile-details">
-            <p><strong>Name:</strong> {userData.username}</p>
-            <p><strong>Email:</strong> {userData.email}</p>
-            <p><strong>Role:</strong> {userData.role.toUpperCase()}</p>
-            <p><strong>Joined:</strong> {new Date(userData.createdAt).toLocaleDateString()}</p>
+            <div className="detail-item">
+              <span className="detail-label">Name:</span>
+              <span className="detail-value">{userData.username}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Email:</span>
+              <span className="detail-value">{userData.email}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Role:</span>
+              <span className="detail-value">{userData.role.toUpperCase()}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Joined:</span>
+              <span className="detail-value">
+                {new Date(userData.createdAt).toLocaleDateString()}
+              </span>
+            </div>
           </div>
         </section>
 
         <section className="profile-actions">
           <h2>Actions</h2>
-          <button className="profile-button" onClick={() => navigate('/orders')}>
-            View Your Orders
-          </button>
-          
-          <button
-            className="profile-button logout-button"
-            onClick={() => {
-              localStorage.removeItem('token');
-              localStorage.removeItem('user');
-              navigate('/login');
-            }}
-          >
-            Logout
-          </button>
+          <div className="action-buttons">
+            <button 
+              className="profile-button primary"
+              onClick={() => navigate('/orders')}
+            >
+              View Your Orders
+            </button>
+            <button 
+              className="profile-button secondary"
+              onClick={() => navigate('/settings')}
+            >
+              Account Settings
+            </button>
+            <button
+              className="profile-button logout-button"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
         </section>
       </div>
     </div>
