@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Button, Form, FormControl } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
 
 const MyNavbar = () => {
   const location = useLocation();
@@ -38,6 +39,11 @@ const MyNavbar = () => {
         </Form>
         
         <Nav className="auth-nav">
+          <Nav.Link as={Link} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
+            <Button variant="outline-primary" className="profile-btn">
+              <FaUser className="profile-icon" /> Profile
+            </Button>
+          </Nav.Link>
           <Nav.Link as={Link} to="/get-started">
             <Button variant="primary" className="get-started-btn">
               Get Started
@@ -50,4 +56,3 @@ const MyNavbar = () => {
 };
 
 export default MyNavbar;
-

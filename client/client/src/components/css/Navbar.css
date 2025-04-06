@@ -1,0 +1,23 @@
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.profile-btn:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-1px);
+}
+
+.profile-icon {
+  font-size: 1.1rem;
+}
+
+.profile-btn.active {
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
