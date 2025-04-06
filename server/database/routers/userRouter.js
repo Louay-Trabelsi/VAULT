@@ -6,10 +6,10 @@ const {Sign_up,authenticate,deleteUser,getAllUsers,getUserById,isAdmin,login,upd
 router.post('/signup', Sign_up)
 router.post('/login', login)
 
-router.get('/', getAllUsers)
+router.get('/',authenticate,isAdmin, getAllUsers)
 router.get('/user/:id', authenticate, getUserById)
 
-router.put('/user/:id', authenticate,isAdmin, updateUser)
-router.delete('/user/:id', authenticate, isAdmin, deleteUser)
+router.put('/:id', authenticate,isAdmin, updateUser)
+router.delete('/:id', authenticate, isAdmin, deleteUser)
 
 module.exports = router

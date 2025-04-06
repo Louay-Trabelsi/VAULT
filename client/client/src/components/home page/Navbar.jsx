@@ -2,9 +2,11 @@ import React from 'react';
 import { Navbar, Nav, Button, Form, FormControl } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import { FaUser } from 'react-icons/fa';
+import { jwtDecode } from 'jwt-decode';
 
 const MyNavbar = () => {
   const location = useLocation();
+  const token = localStorage.getItem('token');
 
   return (
     <Navbar expand="lg" className="custom-navbar">
@@ -39,14 +41,19 @@ const MyNavbar = () => {
         </Form>
         
         <Nav className="auth-nav">
-          <Nav.Link as={Link} to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
+          <Nav.Link as={Link} to={token ? 'Profile' : 'login'} className={location.pathname === '/profile' ? 'active' : ''}>
             <Button variant="outline-primary" className="profile-btn">
-              <FaUser className="profile-icon" /> Profile
+              <FaUser className="profile-icon" /> {token ? 'Profile' : 'Login'}
             </Button>
           </Nav.Link>
           <Nav.Link as={Link} to="/get-started">
             <Button variant="primary" className="get-started-btn">
               Get Started
+            </Button>
+          </Nav.Link>
+          <Nav.Link hidden={token&& !jwtDecode(token).role==='admin'} as={Link} to="/Dashboard/Overview">
+            <Button variant="primary" className="get-started-btn">
+              Admin-Dashboard
             </Button>
           </Nav.Link>
         </Nav>

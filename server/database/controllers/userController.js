@@ -28,6 +28,8 @@ module.exports = {
     getAllUsers: async (req, res) => {
         try {
         const users = await User.findAll();
+        console.log('Fetched users:', users[0].id);
+        
         res.status(200).json(users);
         } catch (error) {
         console.error('Error fetching users:', error);
@@ -50,26 +52,30 @@ module.exports = {
         const { id } = req.params;
         try {
             const user = await User.findByPk(id);
+            
             if (!user) return res.status(404).json({ message: 'User not found' });
             await user.destroy();
             res.status(200).json({ message: 'User deleted successfully' });
+            
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.log(req.params);
             res.status(500).json({ message: 'Internal server error' });
         }
     },
  
  
     Sign_up: async (req, res) => {
-        const { name, email, password, role } = req.body;
+        const { name, email, password, role ,image} = req.body;
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
 
+            const userr = await User.findOne({ where: { email:email } })
+            if(userr){
+                res.status(400).json("email already exist")
+            }
+            const user = await User.create({ name, email, password: hashedPassword, role,image })
 
-            const user = await User.create({ name, email, password: hashedPassword, role });
-
-
-            res.status(201).json({ message: 'User created successfully', user });
+            res.status(201).json("user created");
         } catch (error) {
             console.error('Error creating user:', error);
             res.status(500).send(error);
@@ -109,17 +115,19 @@ module.exports = {
 
             if (password) {
                 const hashedPassword = await bcrypt.hash(password, 10);
+                user.password = hashedPassword|| user.password;
             }
             await user.update({
                 name: name || user.name,
                 email: email || user.email,
-                password: hashedPassword || user.password,
                 role: role || user.role,
                 image: image || user.image,
                 status: status || user.status,
             });
 
             res.status(200).json({ message: 'User updated successfully', user });
+            console.log('User updated:', user.status);
+            
         } catch (error) {
             console.error('Error updating user:', error);
             res.status(500).json({ message: 'Internal server error' });
