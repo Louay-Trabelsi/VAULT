@@ -1,18 +1,23 @@
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/home page/Navbar';
+import Footer from './components/home page/Footer';
+import Home from './components/home page/Home';
 import './App.css';
-import AllProducts from './components/products/AllProducts.jsx';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import ProductDetails from './components/products/ProductDetails.jsx';
-const App=()=> {
-return (
-  <BrowserRouter>
-      <div>
-        <Routes>
-          <Route path="/" element={<AllProducts />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-    
-  )
-  }
+import './index.css';
+import './styles.css';  // Import the new styles
+
+function App() {
+  return (
+    <div className="App">
+      <Navbar /> {/* عرض الـ Navbar */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* Add other routes here as needed */}
+      </Routes>
+      <Footer /> {/* عرض الـ Footer */}
+    </div>
+  );
+}
+
 export default App;
