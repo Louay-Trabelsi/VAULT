@@ -21,7 +21,7 @@ connection.authenticate()
 .catch(err => console.error('Unable to connect to the database:', err))
 
 const User = require('./models/user')(connection,DataTypes)
-const cart = require('./models/cart')(connection,DataTypes)
+const Cart = require('./models/cart')(connection,DataTypes)
 const Product = require('./models/Product')(connection,DataTypes)
 
 
@@ -34,5 +34,5 @@ const Product = require('./models/Product')(connection,DataTypes)
 
 
 
-module.exports = {connection,User,cart,Product};
+module.exports = {connection,User,Cart,Product};
 

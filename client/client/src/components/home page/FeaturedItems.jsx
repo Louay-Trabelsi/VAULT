@@ -51,7 +51,7 @@ const FeaturedItems = () => {
       <Container>
         <h2 className="text-center mb-5">Featured Products</h2>
         <Row className="g-4">
-          {products.map(product => (
+          {products.slice(0,4).map(product => (
             <Col key={product.id} xs={12} sm={6} md={4} lg={3}>
               <Card className="h-100 product-card">
                 <div className="product-image-container">

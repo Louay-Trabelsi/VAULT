@@ -26,8 +26,8 @@ module.exports = {
 
   // Add a product to the cart
   addToCart: async (req, res) => {
-    const {  productId, quantity } = req.body;
-    const userId = req.user.id; // Assuming you have user ID from authentication middleware
+    const {  productId, quantity ,userId} = req.body;
+    // Assuming you have user ID from authentication middleware
 
     try {
       const product = await Product.findByPk(productId);
@@ -36,7 +36,7 @@ module.exports = {
       const totalPrice = product.price * quantity;
 
       const cartItem = await Cart.create({
-        userId,
+        userId:req.user.id,
         productId,
         quantity,
         totalPrice,
@@ -45,6 +45,7 @@ module.exports = {
       res.status(201).json({ message: "Product added to cart", cartItem });
     } catch (error) {
       console.error("Error adding to cart:", error);
+      console.log(userId);
       res.status(500).json({ message: "Internal server error" });
     }
   },
