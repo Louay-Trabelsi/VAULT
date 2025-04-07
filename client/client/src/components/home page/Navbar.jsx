@@ -35,13 +35,13 @@ const MyNavbar = () => {
           </Nav.Link>
         </Nav>
         
-        <Form inline className="search-form">
+        {/* <Form inline className="search-form">
           <FormControl
             type="text"
             placeholder="Search"
             className="mr-sm-2"
           />
-        </Form>
+        </Form> */}
         
         <Nav className="auth-nav">
           <Nav.Link as={Link} to={token ? 'Profile' : 'login'} className={location.pathname === '/profile' ? 'active' : ''}>
