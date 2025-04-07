@@ -5,26 +5,41 @@ import OneProduct from './OneProduct.jsx';
 import './AllProducts.css';
 
 const AllProducts = () => {
-  const [data,SetData]=useState([]);
-  useEffect(()=>{
-    getData()
-  },[])
-  const getData=async()=>{
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
     try {
-      const res=await axios.get('http://localhost:3000/api/product/')
+      setLoading(true);
+      console.log("Fetching products...");
+      const res = await axios.get('http://localhost:3000/api/product/');
       console.log("Products data from API:", res.data);
-      SetData(res.data)
+      setData(res.data);
+      setError(null);
     } catch (error) {
       console.error("Error fetching products:", error);
+      setError("Failed to load products: " + error.message);
+    } finally {
+      setLoading(false);
     }
-  }
-  
+  };
+
+  if (loading) return <div className="loading">Loading products...</div>;
+  if (error) return <div className="error">{error}</div>;
+  if (!data.length) return <div className="no-products">No products available</div>;
+
   return (
     <div className="container">
-      <h1 className="text-center mt-4">All Products</h1>
+      <h1 className="title-h1">All Products</h1>
+      <br />
       <div className="products-grid">
-        {data.map((e, i) => (
-          <OneProduct key={i} e={e}/>
+        {data.map((e,i) => (
+          <OneProduct key={i} e={e} />
         ))}
       </div>
     </div>

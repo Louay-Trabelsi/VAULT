@@ -9,22 +9,26 @@ import SignUp from './components/Login/SignUp';
 import Overview from './components/Dashboard/Overview';
 import UserList from './components/Dashboard/UserList';
 import ProductList from './components/Dashboard/ProductList';
+import Shop from './components/shop/Shop';
+import ProductDetails from './components/products/ProductDetails';
 import './App.css';
 import './index.css';
 import './styles.css';  // Import the new styles
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Navbar /> {/* عرض الـ Navbar */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path='login' element={<Login />} />
-        <Route path='signup' element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard/overview" element={<Overview />} />
         <Route path="/dashboard/userlist" element={<UserList />} />
         <Route path="/dashboard/productlist" element={<ProductList />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
 
         {/* Add other routes here as needed */}
       </Routes>
