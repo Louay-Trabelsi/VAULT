@@ -67,7 +67,7 @@ function ProductList() {
             </tr>
           </thead>
           <tbody>
-            {ProductList.map((product) => (
+            {ProductList.filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map((product) => (
               <tr key={product.id} className="productlist-row">
                 <td className="productlist-cell">{product.id}</td>
                 <td className="productlist-cell">

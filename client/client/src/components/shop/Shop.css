@@ -1,0 +1,48 @@
+.shop-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.shop-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.shop-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.shop-header p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
+
+.shop-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+
+.shop-content .container {
+  max-width: 100%;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .shop-content {
+    padding: 1rem;
+  }
+  
+  .shop-header h1 {
+    font-size: 2rem;
+  }
+  
+  .shop-header p {
+    font-size: 1rem;
+  }
+} 
