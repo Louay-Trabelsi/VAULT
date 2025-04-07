@@ -3,14 +3,23 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import './ProductList.css'
 import SideBar from './SideBar'
+import AddProduct from './AddProduct'
+import { jwtDecode } from 'jwt-decode'
 
 function ProductList() {
   const token = localStorage.getItem('token')
   const [ProductList, setProductList] = useState([])
-  const [hidden, sethidden] = useState(false)
+  const [hidden, sethidden] = useState(true)
   const [name, setname] = useState('')
   const [price, setprice] = useState('')
   const [stock, setstock] = useState('')
+  const [search, setsearch] = useState('')
+  const [hiddenAdd, sethiddenAdd] = useState(true)
+
+
+  if (!token||jwtDecode(token).role !== 'admin') {
+    window.location.href = '/' 
+  }
 
   const fetchProducts = async () => {
     try {
@@ -30,10 +39,22 @@ function ProductList() {
 
   return (
     <>
+    <div className='sidebar'>
+
         <SideBar/>
+    </div>
 
     <div className="productlist-container">
       <h1 className="productlist-title">Product List</h1>
+      <div className='filter-add'>
+        <input type="text" className='search' placeholder='Search for a product' onChange={(e)=>setsearch(e.target.value)} />
+        <button className="add-btn" onClick={() => {
+          sethiddenAdd(!hiddenAdd)
+          }}>Add Product</button>
+      </div>
+        <div className='add-product' hidden={hiddenAdd}>
+            <AddProduct sethiddenAdd={sethiddenAdd} hiddenAdd={hiddenAdd} />
+        </div>
       <div className="productlist-table-wrapper">
         <table className="productlist-table">
           <thead>
@@ -70,11 +91,11 @@ function ProductList() {
                   />
                 </td>
                 <td className="productlist-cell">
-                  {product.stock}
+                  {product.quantity}
                   <input
                     hidden={hidden}
                     type="number"
-                    defaultValue={product.stock}
+                    defaultValue={product.quantity}
                     className="productlist-input"
                     onChange={(e) => setstock(e.target.value)}
                   />
