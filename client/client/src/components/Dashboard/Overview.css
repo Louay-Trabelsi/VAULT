@@ -1,5 +1,5 @@
 .overview-container {
-  margin-left: 20%; /* Adjust for sidebar */
+  margin-left: 250px; /* Adjust for sidebar width */
   padding: 20px;
   background-color: white;
   min-height: 100vh;
@@ -16,7 +16,7 @@
 }
 
 .overview-card {
-  background: #f4f4f4;;
+  background: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;

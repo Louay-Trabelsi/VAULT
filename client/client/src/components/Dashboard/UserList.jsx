@@ -2,10 +2,16 @@ import React, { use, useEffect, useState } from 'react'
 import axios from 'axios'
 import SideBar from './SideBar'
 import './UserList.css'
+import { jwtDecode } from 'jwt-decode'
 
 function UserList() {
   const token = localStorage.getItem('token')
   const [userList, setUserList] = useState([])
+  const [search, setsearch] = useState('')
+
+  if (!token||jwtDecode(token).role !== 'admin') {
+    window.location.href = '/'
+  }
 
   const fetchUsers = async () => {
     try {
@@ -59,10 +65,14 @@ function UserList() {
 
   return (
     <>
+    <div className='sidebar' >
       <SideBar />
-
+    </div>
       <div className="userlist-container">
         <h1 className="userlist-title">User List</h1>
+        <div className='search-bar'>
+          <input type="text" placeholder='search'  onChange={(e)=>setsearch(e.target.value)} />
+        </div>
         <table className="userlist-table">
           <thead>
             <tr>
@@ -75,7 +85,7 @@ function UserList() {
             </tr>
           </thead>
           <tbody>
-            {userList.sort((a, b) => a.role.localeCompare(b.role)).map(user => (
+            {userList.sort((a, b) => a.role.localeCompare(b.role)).filter((e)=>e.name.toLowerCase().includes(search.toLowerCase())).map(user => (
               <tr key={user.id} className="userlist-row">
                 <td className="userlist-cell">{user.id}</td>
                 <td className="userlist-cell">{user.name}</td>
