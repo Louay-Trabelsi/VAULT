@@ -14,10 +14,10 @@ const OneProduct = ({ e }) => {
 
   return (
     <div className="product-card">
-      <div className="product-image-container">
+      <div className="product-image1-container">
         <img 
           src={e.image} 
-          className="product-image" 
+          className="product-image1" 
           alt={e.name} 
         />
       </div>
