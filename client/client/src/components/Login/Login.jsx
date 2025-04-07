@@ -44,6 +44,7 @@ function Login() {
               }
               else {
                   alert('Invalid role')
+                  return
               }
               // console.log(response.data.token)
               // console.log(jwtDecode(response.data.token))

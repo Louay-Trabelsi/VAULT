@@ -1,67 +1,76 @@
 import React from 'react';
-import { Navbar, Nav, Button, Form, FormControl } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
-import { FaUser } from 'react-icons/fa';
+import { FaUser, FaShoppingCart } from 'react-icons/fa';
 import { jwtDecode } from 'jwt-decode';
+import '../css/Navbar.css';
 
 const MyNavbar = () => {
   const location = useLocation();
   const token = localStorage.getItem('token');
-  console.log(token?jwtDecode(token).role:'no token');
-  const role= token?jwtDecode(token).role:'no token';
-  
+  const role = token ? jwtDecode(token).role : 'no token';
 
   return (
-    <Navbar expand="lg" className="custom-navbar">
-      <Navbar.Brand as={Link} to="/" className="navbar-logo">
-        <img
-          src="/logo sirine.png"
-          alt="Sirine Logo"
-          height="40"
-          className="d-inline-block align-top"
-        />
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto main-nav">
-          <Nav.Link as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
-            Home
-          </Nav.Link>
-          <Nav.Link as={Link} to="/shop" className={location.pathname === '/shop' ? 'active' : ''}>
-            Shop
-          </Nav.Link>
-          <Nav.Link hidden={role!=='admin'&&role!=='user'} as={Link} to="/cart" className={location.pathname === '/cart' ? 'active' : ''}>
-            Cart
-          </Nav.Link>
-        </Nav>
+    <nav className="navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-brand">
+          <span className="brand-name">VAULT</span>
+        </Link>
         
-        {/* <Form inline className="search-form">
-          <FormControl
-            type="text"
-            placeholder="Search"
-            className="mr-sm-2"
-          />
-        </Form> */}
+        <input type="checkbox" id="navbar-toggle" className="navbar-toggle" />
+        <label htmlFor="navbar-toggle" className="navbar-toggle-label">
+          <span className="hamburger"></span>
+        </label>
         
-        <Nav className="auth-nav">
-          <Nav.Link as={Link} to={token ? 'Profile' : 'login'} className={location.pathname === '/profile' ? 'active' : ''}>
-            <Button variant="outline-primary" className="profile-btn">
-              <FaUser className="profile-icon" /> {token ? 'Profile' : 'Login'}
-            </Button>
-          </Nav.Link>
-          <Nav.Link as={Link} to="/get-started">
-            <Button variant="primary" className="get-started-btn">
+        <div className="navbar-menu">
+          <div className="navbar-links">
+            <Link 
+              to="/" 
+              className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
+            >
+              Home
+            </Link>
+            <Link 
+              to="/shop" 
+              className={`nav-link ${location.pathname === '/shop' ? 'active' : ''}`}
+            >
+              Shop
+            </Link>
+            {['admin', 'user'].includes(role) && (
+              <Link 
+                to="/cart" 
+                className={`nav-link ${location.pathname === '/cart' ? 'active' : ''}`}
+              >
+                <FaShoppingCart className="cart-icon" />
+              </Link>
+            )}
+          </div>
+          
+          <div className="navbar-auth">
+            <Link 
+              to={token ? '/profile' : '/login'} 
+              className="auth-btn outline"
+            >
+              <FaUser className="auth-icon" />
+              {token ? 'Profile' : 'Login'}
+            </Link>
+            <Link 
+              to="/signup" 
+              className="auth-btn solid"
+            >
               Get Started
-            </Button>
-          </Nav.Link>
-          <Nav.Link hidden={!token?true:role==='user'} as={Link} to="/Dashboard/Overview">
-            <Button hidden={!token?true:role==='user'} variant="primary" className="get-started-btn">
-              Admin-Dashboard
-            </Button>
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+            </Link>
+            {role === 'admin' && (
+              <Link 
+                to="/Dashboard/Overview" 
+                className="auth-btn solid"
+              >
+                Dashboard
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
