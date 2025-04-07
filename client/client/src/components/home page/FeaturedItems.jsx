@@ -66,7 +66,7 @@ const FeaturedItems = () => {
                   <Card.Title className="product-title">{product.name}</Card.Title>
                   <Card.Text className="product-price">${product.price}</Card.Text>
                   <Link 
-                    to={`/shop/item/${product.id}`} 
+                    to={`/product/${product.id}`} 
                     className="btn btn-primary mt-auto"
                   >
                     View Details

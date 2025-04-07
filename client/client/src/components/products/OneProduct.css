@@ -1,0 +1,222 @@
+.product-image-container {
+    position: relative;
+    padding: 2rem;
+    background: #f8f9fa;
+}
+
+.product-main-image {
+    width: 100%;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.product-info-container {
+    padding: 2rem;
+}
+
+.product-title1{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: #2cba67 !important;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+
+.product-description {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+.add-to-cart-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: #2980b9;
+}
+
+.product-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #f0f0f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    border-color: #e0e0e0;
+}
+
+.product-image-container {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #f9f9f9;
+    padding: 1rem;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.product-title1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+.product-title1:hover {
+    color: #3498db;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: #2cba67;
+    font-weight: 600;
+    margin: 0;
+}
+
+.product-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.product-rating strong {
+    color: #2c3e50;
+}
+
+.add-to-cart-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    margin-top: auto;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.add-to-cart-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #2472a4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .product-image-container {
+        height: 200px;
+    }
+}
+
+@media (max-width: 992px) {
+    .product-image-container {
+        height: 180px;
+    }
+    
+    .product-title1 {
+        font-size: 1rem;
+    }
+    
+    .product-price {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-image-container {
+        height: 160px;
+        padding: 0.8rem;
+    }
+    
+    .product-info {
+        padding: 1.2rem;
+    }
+    
+    .add-to-cart-btn {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-image-container {
+        height: 140px;
+    }
+    
+    .product-info {
+        padding: 1rem;
+        gap: 0.6rem;
+    }
+    
+    .product-title1 {
+        font-size: 0.95rem;
+    }
+    
+    .product-price {
+        font-size: 1rem;
+    }
+}
