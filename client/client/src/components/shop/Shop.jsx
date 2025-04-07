@@ -6,6 +6,7 @@ const Shop = () => {
   return (
     <div className="shop-container">
       <div className="shop-content">
+        
         <AllProducts />
       </div>
     </div>
