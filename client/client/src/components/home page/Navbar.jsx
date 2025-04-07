@@ -7,6 +7,9 @@ import { jwtDecode } from 'jwt-decode';
 const MyNavbar = () => {
   const location = useLocation();
   const token = localStorage.getItem('token');
+  console.log(token?jwtDecode(token).role:'no token');
+  const role= token?jwtDecode(token).role:'no token';
+  
 
   return (
     <Navbar expand="lg" className="custom-navbar">
@@ -27,7 +30,7 @@ const MyNavbar = () => {
           <Nav.Link as={Link} to="/shop" className={location.pathname === '/shop' ? 'active' : ''}>
             Shop
           </Nav.Link>
-          <Nav.Link as={Link} to="/cart" className={location.pathname === '/cart' ? 'active' : ''}>
+          <Nav.Link hidden={role!=='admin'&&role!=='user'} as={Link} to="/cart" className={location.pathname === '/cart' ? 'active' : ''}>
             Cart
           </Nav.Link>
         </Nav>
@@ -51,8 +54,8 @@ const MyNavbar = () => {
               Get Started
             </Button>
           </Nav.Link>
-          <Nav.Link hidden={token&& !jwtDecode(token).role==='admin'} as={Link} to="/Dashboard/Overview">
-            <Button variant="primary" className="get-started-btn">
+          <Nav.Link hidden={!token?true:role==='user'} as={Link} to="/Dashboard/Overview">
+            <Button hidden={!token?true:role==='user'} variant="primary" className="get-started-btn">
               Admin-Dashboard
             </Button>
           </Nav.Link>

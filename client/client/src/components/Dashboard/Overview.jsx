@@ -3,11 +3,16 @@ import axios from 'axios'
 import { useEffect } from 'react'
 import SideBar from './SideBar'
 import './Overview.css'
+import { jwtDecode } from 'jwt-decode'
 
 function Overview() {
     const [UserList, setUserList] = useState([])
     const [ProductList, setProductList] = useState([])
     const token = localStorage.getItem('token')
+
+    if (!token||jwtDecode(token).role !== 'admin') {
+        window.location.href = '/'
+    }
 
     const fetchUsers = async () => {
         try {
@@ -42,7 +47,10 @@ function Overview() {
 
     return (
         <>
+        <div className='sidebar'>
+
             <SideBar />
+        </div>
             <div className="overview-container">
                 <h1 className="overview-header">Overview</h1>
                 <div className="flex flex-col bg-gray">

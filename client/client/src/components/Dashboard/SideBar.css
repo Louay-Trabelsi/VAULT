@@ -1,12 +1,21 @@
 .sidebar {
   width: 250px;
-  height: 100vh;
+  height: 100vh; /* Full height of the viewport */
   background-color: #2c3e50;
   color: white;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  position: fixed;
+  position: fixed; /* Keep the sidebar fixed */
+  top: 60px; /* Push the sidebar below the navbar (assuming navbar height is 60px) */
+  left: 0;
+  z-index: 1000; /* Ensure it stays above other elements */
+  overflow-y: auto; /* Make the sidebar scrollable if content overflows */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for better visibility */
+}
+
+.sidebar.collapsed {
+  transform: translateX(-100%); /* Hide the sidebar when collapsed */
 }
 
 .sidebar-title {
@@ -33,4 +42,31 @@
 
 .sidebar-menu a:hover {
   color: #1abc9c;
+}
+
+/* Hamburger menu for smaller screens */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 20px; /* Adjust to align with the navbar */
+  left: 20px;
+  z-index: 1100;
+  cursor: pointer;
+  font-size: 24px;
+  color: white;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%); /* Hide sidebar by default */
+  }
+
+  .sidebar.open {
+    transform: translateX(0); /* Show sidebar when open */
+  }
+
+  .hamburger {
+    display: block; /* Show hamburger menu */
+  }
 }
