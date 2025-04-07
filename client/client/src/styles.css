@@ -1,4 +1,4 @@
-/* Custom styles for React Bootstrap components */
+Custom styles for React Bootstrap components
 
 /* Color Variables */
 :root {
@@ -19,7 +19,6 @@
 
 /* Navbar customization */
 .navbar {
-    background-color: var(--background-dark) !important;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     padding: 0.5rem 2rem;
 }
@@ -51,7 +50,7 @@
 }
 
 .nav-link {
-    color: var(--white) !important;
+    color: grey !important;
     font-weight: 500;
     margin: 0 1rem;
     position: relative;

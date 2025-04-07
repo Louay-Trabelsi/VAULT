@@ -56,7 +56,18 @@ function AddProduct({sethiddenAdd, hiddenAdd}) {
             </div>
             <div className='form-group'>
               <label htmlFor="image">Image</label>
-            <input type="text" id="image"  onChange={(e) => setImage(e.target.value)} required />
+            <input type="file" id="image" accept='image/*'  required onChange={async(e)=>{
+              const file = e.target.files[0]
+              console.log(file);
+              
+              if (!file) return
+              const formData = new FormData()
+              formData.append('file', file)
+              formData.append("upload_preset",'movies') // Replace with your Cloudinary upload preset
+              const response = await axios.post('https://api.cloudinary.com/v1_1/dj9eduznp/image/upload', formData) // Replace with your Cloudinary URL
+              setImage(response.data.secure_url) // Set the image URL to state
+              console.log("image",response.data.secure_url)
+            }} />
             </div>
             <button className='submit' type="submit" onClick={async()=>{
                try {
