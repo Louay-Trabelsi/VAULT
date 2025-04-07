@@ -3,10 +3,12 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ProductDetails.css';
+import {jwtDecode} from 'jwt-decode';
 
 const ProductDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const token = localStorage.getItem('token');
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -100,7 +102,27 @@ const ProductDetails = () => {
                         </div>
                     </div>
                     <div className="action-buttons">
-                        <button className="add-to-cart-btn">Add to Cart</button>
+                        <button onClick={async()=>{
+          try {
+            await axios.post('http://localhost:3000/api/cart', {
+              productId: product.id,
+              quantity: 1,
+              userId: jwtDecode(token).id,
+            },{
+              headers: {
+                'Authorization': `Bearer ${token}`
+
+                
+              }
+
+            });
+            console.log("Product added to cart successfully");
+          } catch (error) {
+            console.log("Error adding to cart:", error);
+
+            
+          }
+        }}className="add-to-cart-btn">Add to Cart</button>
                     </div>
                 </div>
             </div>
