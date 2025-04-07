@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode'
 function Overview() {
     const [UserList, setUserList] = useState([])
     const [ProductList, setProductList] = useState([])
+    const [SalesList, setSalesList] = useState([])
     const token = localStorage.getItem('token')
 
     if (!token||jwtDecode(token).role !== 'admin') {
@@ -39,16 +40,30 @@ function Overview() {
             console.error('Error fetching products:', error)
         }
     }
+    const fetchSales = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/sales', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setSalesList(response.data)
+            
+        } catch (error) {
+            console.error('Error fetching sales:', error)
+            
+        }
+    }
 
     useEffect(() => {
         fetchUsers()
         fetchProducts()
+        fetchSales()
     }, [])
 
     return (
-        <>
+        <div className='dashboard'>
         <div className='sidebar'>
-
             <SideBar />
         </div>
             <div className="overview-container">
@@ -64,9 +79,17 @@ function Overview() {
                             {ProductList.reduce((sum, product) => sum + product.quantity, 0)}
                         </p>
                     </div>
+                    <div className="overview-card">
+                        <h2 className="overview-card-title">Total Sales</h2>
+                        <p className="overview-card-text">{SalesList.length}</p>
+                    </div>
+                    <div className="overview-card">
+                        <h2 className="overview-card-title">Total revenue</h2>
+                        <p className="overview-card-text">${SalesList.reduce((sum,sales)=>sum+sales.total,0)}</p>
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
