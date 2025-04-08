@@ -9,7 +9,7 @@ router.post('/login', login)
 router.get('/',authenticate,isAdmin, getAllUsers)
 router.get('/user/:id', authenticate, getUserById)
 
-router.put('/:id', authenticate,isAdmin, updateUser)
+router.put('/:id', updateUser)
 router.delete('/:id', authenticate, isAdmin, deleteUser)
 
 module.exports = router

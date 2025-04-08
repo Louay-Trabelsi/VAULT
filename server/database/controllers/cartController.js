@@ -1,7 +1,5 @@
-const { Cart, Product } = require("../index.js"); // Adjust path if necessary
-
+const { Cart, Product } = require("../index.js"); 
 module.exports = {
-  // Get all cart items
   getAllCartItems: async (req, res) => {
     try {
       const cartItems = await Cart.findAll();
@@ -12,31 +10,41 @@ module.exports = {
     }
   },
 
-  // Get cart items by user ID
   getCartByUserId: async (req, res) => {
-    const { userId } = req.user.id
+    const userId =req.params.id 
+  
     try {
-      const cartItems = await Cart.findAll({ where: { userId } });
+      const cartItems = await Cart.findAll({
+        where: { userId },
+        include: [
+          {
+            model: Product,
+            as: 'Product',
+            attributes: ['id', 'name', 'price', 'image'], 
+          },
+        ],
+      });
+  
       res.status(200).json(cartItems);
     } catch (error) {
-      console.error("Error fetching cart:", error);
+      console.error("Error fetching cart with product details:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  },
+  }
+,  
 
-  // Add a product to the cart
   addToCart: async (req, res) => {
-    const {  productId, quantity ,userId} = req.body;
-    // Assuming you have user ID from authentication middleware
+    const {  productId, quantity  , userId} = req.body;
 
     try {
       const product = await Product.findByPk(productId);
+  
       if (!product) return res.status(404).json({ message: "Product not found" });
 
       const totalPrice = product.price * quantity;
 
       const cartItem = await Cart.create({
-        userId:req.user.id,
+        userId,
         productId,
         quantity,
         totalPrice,
@@ -45,12 +53,10 @@ module.exports = {
       res.status(201).json({ message: "Product added to cart", cartItem });
     } catch (error) {
       console.error("Error adding to cart:", error);
-      console.log(userId);
       res.status(500).json({ message: "Internal server error" });
     }
   },
 
-  // Update cart item quantity
   updateCartItem: async (req, res) => {
     const { id } = req.params;
     const { quantity } = req.body;
@@ -73,7 +79,6 @@ module.exports = {
     }
   },
 
-  // Remove a product from the cart
   removeFromCart: async (req, res) => {
     const { id } = req.params;
     try {
@@ -86,17 +91,5 @@ module.exports = {
       console.error("Error removing cart item:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  },
-
-  // Clear the cart for a user
-  clearCart: async (req, res) => {
-    const { userId } = req.params;
-    try {
-      await Cart.destroy({ where: { userId } });
-      res.status(200).json({ message: "Cart cleared successfully" });
-    } catch (error) {
-      console.error("Error clearing cart:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  },
+  }
 };

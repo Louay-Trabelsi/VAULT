@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import './OneProduct.css';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
@@ -45,8 +46,9 @@ const OneProduct = ({ e }) => {
                 
               }
 
-            });
-            console.log("Product added to cart successfully");
+            })
+            console.log("Product added to cart successfully")
+            navigate('/cart');
           } catch (error) {
             console.log("Error adding to cart:", error);
 

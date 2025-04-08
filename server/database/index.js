@@ -6,7 +6,7 @@ const postgres = require('pg')
 
 const connection = new Sequelize({
   dialect: 'postgres',
-  database: 'vault',
+  database: 'VAULT',
   username: 'postgres',
   password: 'root',
   host: 'localhost',
@@ -24,6 +24,11 @@ const User = require('./models/user')(connection,DataTypes)
 const Cart = require('./models/cart')(connection,DataTypes)
 const Product = require('./models/Product')(connection,DataTypes)
 
+User.hasMany(Cart, { foreignKey: 'userId' });
+Cart.belongsTo(User, { foreignKey: 'userId' });
+
+Product.hasMany(Cart, { foreignKey: 'productId' });
+Cart.belongsTo(Product, { foreignKey: 'productId' });
 
 // connection.sync({force:true})
 // .then(() => {

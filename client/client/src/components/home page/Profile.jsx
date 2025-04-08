@@ -21,6 +21,7 @@ const Profile = () => {
       try {
         const decodedToken = jwtDecode(token);
         const userId = decodedToken.id;
+        console.log(decodedToken);
         
         const response = await axios.get(`http://localhost:3000/api/user/user/${userId}`, {
           headers: {

@@ -116,6 +116,7 @@ const ProductDetails = () => {
               }
 
             });
+            navigate("/cart")
             console.log("Product added to cart successfully");
           } catch (error) {
             console.log("Error adding to cart:", error);
