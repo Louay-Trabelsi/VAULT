@@ -6,7 +6,7 @@ const postgres = require('pg')
 
 const connection = new Sequelize({
   dialect: 'postgres',
-  database: 'VAULT',
+  database: 'vault',
   username: 'postgres',
   password: 'root',
   host: 'localhost',
